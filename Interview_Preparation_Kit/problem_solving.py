@@ -609,4 +609,72 @@ def divisibleSumPairs(n, k, ar):
                 lenpairs += 1
     return lenpairs                
 
-print(divisibleSumPairs(6, 5, [1,2,3,4,5,6]))
+#print(divisibleSumPairs(6, 5, [1,2,3,4,5,6]))
+
+"""
+Migratory Birds
+You have been asked to help study the population of birds migrating across the continent. Each type of bird you are interested in will be identified by an integer value. Each time a particular kind of bird is spotted, its id number will be added to your array of sightings. You would like to be able to find out which type of bird is most common given a list of sightings. Your task is to print the type number of that bird and if two or more types of birds are equally common, choose the type with the smallest ID number.
+For example, assume your bird sightings are of types . There are two each of types  and , and one sighting of type . Pick the lower of the two types seen twice: type .
+Function Description
+Complete the migratoryBirds function in the editor below. It should return the lowest type number of the most frequently sighted bird.
+migratoryBirds has the following parameter(s):
+arr: an array of integers representing types of birds sighted
+Input Format
+The first line contains an integer denoting , the number of birds sighted and reported in the array .
+The second line describes  as  space-separated integers representing the type numbers of each bird sighted.
+Constraints
+It is guaranteed that each type is , , , , or .
+Output Format
+Print the type number of the most common bird; if two or more types of birds are equally common, choose the type with the smallest ID number.
+Sample Input 0
+6
+1 4 4 4 5 3
+Sample Output 0
+4
+"""
+def migratoryBirds(arr):
+    from collections import Counter
+    arr = sorted(arr)
+    counting_dict = Counter(arr)
+    most_freq = max(counting_dict, key=lambda x: counting_dict[x])
+
+    return most_freq
+
+print(migratoryBirds([2,2,1,1,3]))
+
+"""
+Day of the Programmer
+Marie invented a Time Machine and wants to test it by time-traveling to visit Russia on the Day of the Programmer (the  day of the year) during a year in the inclusive range from  to .
+From  to , Russia's official calendar was the Julian calendar; since  they used the Gregorian calendar system. The transition from the Julian to Gregorian calendar system occurred in , when the next day after January  was February . This means that in , February  was the  day of the year in Russia.
+In both calendar systems, February is the only month with a variable amount of days; it has  days during a leap year, and  days during all other years. In the Julian calendar, leap years are divisible by ; in the Gregorian calendar, leap years are either of the following:
+Divisible by .
+Divisible by  and not divisible by .
+Given a year, , find the date of the  day of that year according to the official Russian calendar during that year. Then print it in the format dd.mm.yyyy, where dd is the two-digit day, mm is the two-digit month, and yyyy is .
+For example, the given .  is divisible by , so it is a leap year. The  day of a leap year after  is September 12, so the answer is .
+Function Description
+Complete the dayOfProgrammer function in the editor below. It should return a string representing the date of the  day of the year given.
+dayOfProgrammer has the following parameter(s):
+year: an integer
+Input Format
+A single integer denoting year .
+Constraints
+Output Format
+Print the full date of Day of the Programmer during year  in the format dd.mm.yyyy, where dd is the two-digit day, mm is the two-digit month, and yyyy is .
+Sample Input 0
+2017
+Sample Output 0
+13.09.2017
+"""
+
+def dayOfProgrammer(year):
+    if year < 1918: #Julian
+        september_days = 256 - (5*31 + 2*30+ 28 + int(bool(year%4 == 0))) 
+    if year > 1918: #Gregorian
+        leap = bool((bool(year%400 == 0) + bool(year%4 == 0) + bool(year%100 != 0)) == 2)
+        september_days = 256 - (5*31 + 2*30+ 28 + int(leap))
+    if year == 1918:
+        september_days = 26
+
+    return '{0}.09.{1}'.format(september_days,year)
+
+print(dayOfProgrammer(1918))
